@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
+import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -13,6 +14,7 @@ import android.graphics.ComposeShader;
 import android.graphics.LightingColorFilter;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.PorterDuffXfermode;
@@ -104,7 +106,7 @@ public class CustomView2 extends View {
 //
 //        //设置shader后 setColor就无效了
         //2. shader图层效果
-        mPaint.setShader(mShader3);
+//        mPaint.setShader(mShader3);
 //
 //        mPaint.setShader(mShader2);
 //        canvas.drawCircle(200, 600, 200, mPaint);
@@ -130,16 +132,30 @@ public class CustomView2 extends View {
 
 //        canvas.drawCircle(400, 400, 400, mPaint);
 
-        //xfermode左右和shader都是图层的叠加，xfermode无需禁用硬件加速
+        //xfermode左右和shader都是图层的叠加，xfermode无需禁用硬件加速，可以调整图像位置
 //        setLayerType(LAYER_TYPE_HARDWARE, mPaint); //---> 硬件缓存图层
-        setLayerType(LAYER_TYPE_SOFTWARE, mPaint); //---> bitmap缓存
-        int saved = canvas.saveLayer(null, null, Canvas.ALL_SAVE_FLAG); //保存之前的图层
+//        setLayerType(LAYER_TYPE_SOFTWARE, mPaint); //---> bitmap缓存
+//        int saved = canvas.saveLayer(null, null, Canvas.ALL_SAVE_FLAG); //保存之前的图层
+//
+//        canvas.drawBitmap(bitmap, 0, 0, mPaint);
+//        mPaint.setXfermode(xfermode); //bitmap2背景是透明的，但是叠加时会变成黑色
+//        canvas.drawBitmap(bitmap2, 0, 0, mPaint);
+//        mPaint.setXfermode(null);
 
-        canvas.drawBitmap(bitmap, 0, 0, mPaint);
-        mPaint.setXfermode(xfermode); //bitmap2背景是透明的，但是叠加时会变成黑色
-        canvas.drawBitmap(bitmap2, 0, 0, mPaint);
-        mPaint.setXfermode(null);
+//        canvas.restoreToCount(saved);
 
-        canvas.restoreToCount(saved);
+//        mPaint.setShadowLayer(50, 0, 0, Color.RED);
+        //需要关闭硬件加速
+//        mPaint.setMaskFilter(new BlurMaskFilter(10, BlurMaskFilter.Blur.NORMAL));
+//        canvas.drawBitmap(bitmap, 100,100,mPaint);
+        mPaint.setTextSize(80);
+        mPaint.setColor(Color.RED);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(0);
+//        canvas.drawText("hello world", 300, 300, mPaint);
+
+        Path path = new Path();
+        mPaint.getTextPath("hello world", 0, 11, 0, 80, path); //y轴起点在文字的左下角处
+        canvas.drawPath(path, mPaint);
     }
 }
