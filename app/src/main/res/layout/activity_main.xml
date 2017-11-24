@@ -16,8 +16,15 @@
         <!--app:layout_constraintRight_toRightOf="parent"-->
         <!--app:layout_constraintTop_toTopOf="parent"/>-->
 
-    <com.ladddd.canvasdemo.CameraRotateView
+    <!--<com.ladddd.canvasdemo.ParallelImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:src="@mipmap/test"/>-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        />
 
 </android.support.constraint.ConstraintLayout>

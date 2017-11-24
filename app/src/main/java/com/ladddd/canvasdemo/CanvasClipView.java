@@ -51,6 +51,7 @@ public class CanvasClipView extends View {
 //        canvas.skew(-0.5f, 0);
 //        canvas.drawBitmap(bitmap1, 300, 100, mPaint);
 
+        //canvas的顺序与代码顺序相反
         Matrix matrix = new Matrix();
         //ltrb 四角坐标 {l t r t l b r b}
         float[] pointsSrc = {200, 200, 200+bitmap1.getWidth(), 200, 200, 200+bitmap1.getHeight(), 200+bitmap1.getWidth(), 200+bitmap1.getHeight()}; //xy对
