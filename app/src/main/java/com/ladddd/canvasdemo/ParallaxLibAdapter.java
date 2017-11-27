@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.yayandroid.parallaxrecyclerview.ParallaxViewHolder;
+import com.ladddd.canvasdemo.parallax.ParallaxViewHolder;
 
 /**
  * Created by 陈伟达 on 2017/11/24.
@@ -54,7 +54,7 @@ public class ParallaxLibAdapter extends RecyclerView.Adapter<ParallaxLibAdapter.
 
             @Override
             public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                holder.getBackgroundImage().reuse();
+                holder.getImageView().reuse();
                 return false;
             }
         }).placeholder(R.drawable.image_placeholder).fitCenter()

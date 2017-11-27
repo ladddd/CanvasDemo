@@ -24,6 +24,23 @@ public abstract class ParallaxViewHolder extends RecyclerView.ViewHolder impleme
 
     @Override
     public TranslationInfo requireValuesForTranslate() {
-        return null;
+        TranslationInfo translationInfo = new TranslationInfo();
+        if (itemView.getParent() != null) {
+            int[] itemPosition = new int[2];
+            itemView.getLocationOnScreen(itemPosition);
+
+            int[] recyclerPosition = new int[2];
+            ((RecyclerView) itemView.getParent()).getLocationOnScreen(recyclerPosition);
+
+            translationInfo.setItemTop(itemPosition[1]);
+            translationInfo.setRecyclerViewTop(itemPosition[1]);
+            translationInfo.setRecyclerViewHeight(((RecyclerView) itemView.getParent()).getMeasuredHeight());
+        }
+
+        return translationInfo;
+    }
+
+    public ParallaxImageView getImageView() {
+        return targetImageView;
     }
 }

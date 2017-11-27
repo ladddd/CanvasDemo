@@ -14,7 +14,7 @@ import android.util.AttributeSet;
 
 public class ParallaxImageView extends AppCompatImageView {
 
-    private final float DEFAULT_PARALLAX_RATIO = 1.2f;
+    private final float DEFAULT_PARALLAX_RATIO = 0.5f;
     private float parallaxRatio = DEFAULT_PARALLAX_RATIO;
 
     private boolean needToTranslate = false;
@@ -30,14 +30,21 @@ public class ParallaxImageView extends AppCompatImageView {
 
     public ParallaxImageView(Context context) {
         super(context);
+        init();
     }
 
     public ParallaxImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public ParallaxImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    private void init() {
+        setScaleType(ScaleType.MATRIX);
     }
 
     public void requestTranslate() {
@@ -64,14 +71,14 @@ public class ParallaxImageView extends AppCompatImageView {
         int centerY = (mTranslationInfo.getRecyclerViewTop() + mTranslationInfo.getRecyclerViewHeight())/2;
         int viewCenterY = y + getMeasuredHeight()/2;
         int range = mTranslationInfo.getRecyclerViewHeight() + getMeasuredHeight();
-        int maxOffset = getMeasuredHeight()/3;
+        int maxOffset = (int) (getMeasuredWidth() * parallaxRatio);
         float offsetY = (float) maxOffset / range * (viewCenterY - centerY);
 
         resultMatrix.reset();
         float widthScale = (float) getMeasuredWidth() / getDrawable().getIntrinsicWidth();
         resultMatrix.setScale(widthScale, widthScale);
-        resultMatrix.postTranslate(0, (getMeasuredHeight() - getDrawable().getIntrinsicHeight() * widthScale)/2);
         resultMatrix.postTranslate(0, offsetY);
+        resultMatrix.postTranslate(0, (getMeasuredHeight() - getDrawable().getIntrinsicHeight() * widthScale)/2);
 
         setImageMatrix(resultMatrix);
         invalidate();
@@ -80,6 +87,10 @@ public class ParallaxImageView extends AppCompatImageView {
     public boolean getValues() {
         mTranslationInfo = getListener().requireValuesForTranslate();
         return null != mTranslationInfo;
+    }
+
+    public void reuse() {
+        needToTranslate = true;
     }
 
     @Override

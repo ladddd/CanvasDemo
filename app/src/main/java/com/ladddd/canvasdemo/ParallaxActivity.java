@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 
-import com.yayandroid.parallaxrecyclerview.ParallaxRecyclerView;
+import com.ladddd.canvasdemo.parallax.ParallaxRecyclerView;
 
 /**
  * Created by 陈伟达 on 2017/11/24.
